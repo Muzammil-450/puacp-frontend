@@ -1,33 +1,56 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import UserRoutes from "./routes/UserRoutes";
-import AdminRoutes from "./routes/AdminRoutes";
-import SuperAdminRoutes from "./routes/SuperAdminRoutes";
+import Signup from "./pages/Signup";
+import MainPage from "./pages/Main/MainPage";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import SuperAdminDashboard from "./pages/SuperAdmin/SuperAdminDashboard";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
-function App() {
+export default function App() {
   const [user, setUser] = useState(null);
 
+  // Load user from localStorage on mount
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        {/* Public route */}
+        {/* Public Routes */}
         <Route path="/" element={<Login setUser={setUser} />} />
+        <Route path="/signup" element={<Signup />} />
 
-        {/* Protected user routes */}
-        {user?.role === "user" && <Route path="/*" element={<UserRoutes user={user} />} />}
-
-        {/* Protected admin routes */}
-        {user?.role === "admin" && <Route path="/*" element={<AdminRoutes user={user} />} />}
-
-        {/* Protected super admin routes */}
-        {user?.role === "superadmin" && <Route path="/*" element={<SuperAdminRoutes user={user} />} />}
-
-        {/* Catch-all redirect */}
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* Protected Routes */}
+        <Route
+          path="/main"
+          element={
+            <ProtectedRoute user={user} role="user">
+              <MainPage user={user} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute user={user} role="admin">
+              <AdminDashboard user={user} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/superadmin"
+          element={
+            <ProtectedRoute user={user} role="superadmin">
+              <SuperAdminDashboard user={user} />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
-
-export default App;
