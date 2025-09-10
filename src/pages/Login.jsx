@@ -37,41 +37,79 @@ localStorage.setItem("user", JSON.stringify(loggedUser));
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gradient-to-r from-blue-100 to-indigo-200">
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-96">
-        <h2 className="text-3xl font-bold mb-6 text-center text-indigo-600">Login</h2>
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full border rounded-lg p-3 mb-4 focus:ring-2 focus:ring-indigo-400"
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full border rounded-lg p-3 mb-6 focus:ring-2 focus:ring-indigo-400"
-        />
-
-        <button
-          onClick={handleLogin}
-          disabled={loading}
-          className="w-full bg-indigo-500 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition disabled:bg-gray-400"
-        >
-          {loading ? "Logging in..." : "Login"}
-        </button>
-
-        <p className="mt-4 text-center text-gray-600">
-          Don’t have an account?{" "}
-          <Link to="/signup" className="text-indigo-600 hover:underline">
-            Sign up
-          </Link>
-        </p>
-      </div>
+<div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-white to-gray-50 px-4">
+  {/* Glassmorphic Card */}
+  <div className="backdrop-blur-3xl bg-white/50 shadow-[0_15px_50px_rgba(0,0,0,0.3)] rounded-4xl w-full max-w-md p-6 sm:p-8 border border-gray-100 transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+    
+    {/* Logo */}
+    <div className="flex justify-center my-2">
+      <img 
+        src="/logo.png" 
+        alt="App Logo" 
+        className="h-32 w-auto sm:h-36 object-contain block"
+      />
     </div>
+
+    {/* Heading */}
+    <h1 className="text-2xl sm:text-3xl font-bold mb-1 text-center text-blue-600 font-sans">
+      Welcome Back
+    </h1>
+
+    <p className="text-center text-gray-600 mb-4 text-sm sm:text-base font-sans">
+      Login to access your dashboard quickly and securely.
+    </p>
+
+    {/* Email */}
+    <input
+      type="email"
+      placeholder="Enter your email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      className="w-full border border-gray-200 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 outline-none text-sm sm:text-base transition"
+    />
+
+    {/* Password */}
+    <input
+      type="password"
+      placeholder="Enter your password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      className="w-full border border-gray-200 rounded-xl p-3 mb-4 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 outline-none text-sm sm:text-base transition"
+    />
+
+    {/* Primary Button */}
+    <button
+      onClick={handleLogin}
+      disabled={loading}
+      className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-xl font-semibold shadow-md hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 disabled:from-gray-400 disabled:to-gray-500 text-sm sm:text-base"
+    >
+      {loading ? "Logging in..." : "Login"}
+    </button>
+
+    {/* Secondary Button */}
+    <button
+      className="mt-3 w-full bg-yellow-400 text-gray-900 py-3 rounded-xl font-semibold shadow hover:bg-yellow-500 transform hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+    >
+      Login with Google
+    </button>
+
+    {/* Footer */}
+    <p className="mt-4 text-center text-gray-700 text-xs sm:text-sm">
+      Don’t have an account?{" "}
+      <Link
+        to="/signup"
+        className="font-semibold text-blue-600 hover:underline"
+      >
+        Create an account
+      </Link>
+    </p>
+
+    {/* Small IT Branding */}
+    <p className="mt-2 text-center text-xs sm:text-sm text-gray-500">
+      Secure access powered by <span className="text-blue-500 font-semibold">PUACP</span>
+    </p>
+  </div>
+</div>
+
   );
 }
