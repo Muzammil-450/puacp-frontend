@@ -1,13 +1,17 @@
 import { Navigate } from "react-router-dom";
 
 export default function ProtectedRoute({ user, role, children }) {
+  // If user not logged in
   if (!user) {
-    return <Navigate to="/" replace />; // not logged in
+    return <Navigate to="/" replace />;
   }
 
+  // If user exists but role mismatch
   if (role && user.role !== role) {
-    return <Navigate to="/" replace />; // wrong role
+    // You can send them to a "not authorized" page instead
+    return <Navigate to="/unauthorized" replace />;
   }
 
-  return children; // allowed
+  // All good → render page
+  return children;
 }
