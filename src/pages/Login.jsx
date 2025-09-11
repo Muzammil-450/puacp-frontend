@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../utils/axios";
+import logo from "../assets/logo.png";
 
 export default function Login({ setUser }) {
   const [email, setEmail] = useState("");
@@ -17,6 +18,7 @@ export default function Login({ setUser }) {
 
       // Example response: { username, role, token }
       const loggedUser = res.data.data;
+      console.log(res.data.data)
       setUser(loggedUser);
 
       // Save token
@@ -44,19 +46,19 @@ localStorage.setItem("user", JSON.stringify(loggedUser));
     {/* Logo */}
     <div className="flex justify-center my-2">
       <img 
-        src="/logo.png" 
+        src= {logo} 
         alt="App Logo" 
-        className="h-32 w-auto sm:h-36 object-contain block"
+        className="h-40 w-auto sm:h-36 object-contain block"
       />
     </div>
 
     {/* Heading */}
-    <h1 className="text-2xl sm:text-3xl font-bold mb-1 text-center text-blue-600 font-sans">
+    <h1 className="text-2xl sm:text-3xl font-bold mb-1 text-center text-blue-900 font-sans">
       Welcome Back
     </h1>
 
     <p className="text-center text-gray-600 mb-4 text-sm sm:text-base font-sans">
-      Login to access your dashboard quickly and securely.
+      Login to access PUACP.
     </p>
 
     {/* Email */}
@@ -81,17 +83,11 @@ localStorage.setItem("user", JSON.stringify(loggedUser));
     <button
       onClick={handleLogin}
       disabled={loading}
-      className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-xl font-semibold shadow-md hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 disabled:from-gray-400 disabled:to-gray-500 text-sm sm:text-base"
+      className="w-full bg-gradient-to-r from-yellow-500 to-yellow-700 text-white py-3 rounded-xl font-semibold shadow-md hover:from-yellow-600 hover:to-yellow-700 transform hover:scale-105 transition-all duration-300 disabled:from-gray-400 disabled:to-gray-500 text-sm sm:text-base"
     >
       {loading ? "Logging in..." : "Login"}
     </button>
 
-    {/* Secondary Button */}
-    <button
-      className="mt-3 w-full bg-yellow-400 text-gray-900 py-3 rounded-xl font-semibold shadow hover:bg-yellow-500 transform hover:scale-105 transition-all duration-300 text-sm sm:text-base"
-    >
-      Login with Google
-    </button>
 
     {/* Footer */}
     <p className="mt-4 text-center text-gray-700 text-xs sm:text-sm">
