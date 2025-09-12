@@ -1,16 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
   BookOpen, 
   Calendar, 
-  Users, 
   Award, 
   TrendingUp,
   Home,
   User,
   Settings,
-  LogOut,
-  Menu,
-  X,
   ChevronRight,
   MapPin,
   Clock,
@@ -30,6 +26,7 @@ const mockUser = {
   studentId: "CS2021001"
 };
 
+import Header  from "./components/Header";
 // Announcement Component
 import AnnouncementBanner from "./components/AnnouncementBanner"
 
@@ -84,138 +81,6 @@ function DepartmentLinks({ userRole }) {
         ))}
       </div>
     </div>
-  );
-}
-
-// Header Component
-function Header({ user, onLogout, isMobileMenuOpen, setIsMobileMenuOpen, currentPage, setCurrentPage }) {
-  return (
-    <header className="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo and University Name */}
-          <div className="flex items-center space-x-3">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-xl shadow-lg">
-              <GraduationCap className="h-8 w-8 text-white" />
-            </div>
-            <div className="hidden md:block">
-              <h1 className="text-xl font-bold text-gray-800">UniverCity</h1>
-              <p className="text-xs text-gray-600">Excellence in Education</p>
-            </div>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <button 
-              onClick={() => setCurrentPage('dashboard')}
-              className={`flex items-center space-x-2 transition-colors ${
-                currentPage === 'dashboard' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'
-              }`}
-            >
-              <Home className="h-4 w-4" />
-              <span>Dashboard</span>
-            </button>
-            <button 
-              onClick={() => setCurrentPage('profile')}
-              className={`flex items-center space-x-2 transition-colors ${
-                currentPage === 'profile' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'
-              }`}
-            >
-              <User className="h-4 w-4" />
-              <span>Profile</span>
-            </button>
-            <button 
-              onClick={() => setCurrentPage('calendar')}
-              className={`flex items-center space-x-2 transition-colors ${
-                currentPage === 'calendar' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'
-              }`}
-            >
-              <Calendar className="h-4 w-4" />
-              <span>Calendar</span>
-            </button>
-            <button 
-              onClick={() => setCurrentPage('settings')}
-              className={`flex items-center space-x-2 transition-colors ${
-                currentPage === 'settings' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'
-              }`}
-            >
-              <Settings className="h-4 w-4" />
-              <span>Settings</span>
-            </button>
-          </nav>
-
-          {/* User Info and Logout */}
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:block text-right">
-              <p className="text-sm font-medium text-gray-800">Welcome back,</p>
-              <p className="text-xs text-gray-600">{user?.name}</p>
-            </div>
-            <button
-              onClick={onLogout}
-              className="hidden md:flex items-center space-x-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              <LogOut className="h-4 w-4" />
-              <span>Logout</span>
-            </button>
-            
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
-            >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
-          <div className="px-4 py-3 space-y-3">
-            <div className="pb-3 border-b border-gray-200">
-              <p className="font-medium text-gray-800">{user?.name}</p>
-              <p className="text-sm text-gray-600">{user?.email}</p>
-            </div>
-            <button 
-              onClick={() => {setCurrentPage('dashboard'); setIsMobileMenuOpen(false);}}
-              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 w-full text-left"
-            >
-              <Home className="h-5 w-5 text-gray-600" />
-              <span>Dashboard</span>
-            </button>
-            <button 
-              onClick={() => {setCurrentPage('profile'); setIsMobileMenuOpen(false);}}
-              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 w-full text-left"
-            >
-              <User className="h-5 w-5 text-gray-600" />
-              <span>Profile</span>
-            </button>
-            <button 
-              onClick={() => {setCurrentPage('calendar'); setIsMobileMenuOpen(false);}}
-              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 w-full text-left"
-            >
-              <Calendar className="h-5 w-5 text-gray-600" />
-              <span>Calendar</span>
-            </button>
-            <button 
-              onClick={() => {setCurrentPage('settings'); setIsMobileMenuOpen(false);}}
-              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 w-full text-left"
-            >
-              <Settings className="h-5 w-5 text-gray-600" />
-              <span>Settings</span>
-            </button>
-            <button
-              onClick={onLogout}
-              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-red-50 text-red-600 w-full text-left"
-            >
-              <LogOut className="h-5 w-5" />
-              <span>Logout</span>
-            </button>
-          </div>
-        </div>
-      )}
-    </header>
   );
 }
 
@@ -331,7 +196,10 @@ function MobileBottomNav({ currentPage, setCurrentPage }) {
 // Dashboard Content
 function DashboardContent({ user, userRole }) {
   return (
+    
     <div className="space-y-6">
+      <AnnouncementBanner />
+      
       {/* Welcome Section */}
       <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-10"></div>
@@ -345,7 +213,7 @@ function DashboardContent({ user, userRole }) {
           </div>
         </div>
       </div>
-
+      <DepartmentLinks userRole={userRole} />
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
@@ -592,10 +460,9 @@ export default function MainPage({ user = mockUser }) {
   const [currentPage, setCurrentPage] = useState('dashboard');
 
   const handleLogout = () => {
-    // Note: In Claude artifacts, localStorage is not supported
-    // In your actual app, you would use: localStorage.removeItem("user");
-    alert("Logged out successfully!");
-    // window.location.href = "/";
+    
+    localStorage.removeItem("user");
+    window.location.href = "/";
   };
 
   const userRole = user?.department || "Computer Science";
@@ -611,8 +478,8 @@ export default function MainPage({ user = mockUser }) {
       default:
         return (
           <>
-            <DepartmentLinks userRole={userRole} />
-            <DashboardContent user={user} userRole={userRole} />
+          <DashboardContent user={user} userRole={userRole} />
+            
           </>
         );
     }
@@ -633,7 +500,7 @@ export default function MainPage({ user = mockUser }) {
         setCurrentPage={setCurrentPage}
       />
 
-      <AnnouncementBanner />
+      
 
       {/* Main Content */}
       <main className="pb-20 md:pb-8">
